@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your CliftonStrengths Leadership Style — Dr. Susan E. Murray</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #1B2E5E;
+    --teal:   #0F7B6C;
+    --gold:   #C49A2A;
+    --purple: #7B5EA7;
+    --amber:  #996600;
+    --white:  #FFFFFF;
+    --off:    #F8F8F6;
+    --border: #E0E0DC;
+    --text:   #222222;
+    --muted:  #666666;
+    --light:  #999999;
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans:  'Helvetica Neue', Arial, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--off);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  header .logo-text {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+  header .logo-dot {
+    font-size: 14px;
+    color: var(--teal);
+  }
+  header .header-right {
+    margin-left: auto;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    font-style: italic;
+  }
+  .gold-bar { height: 4px; background: var(--gold); }
+  .teal-bar { height: 3px; background: var(--teal); }
+
+  /* ── MAIN CONTAINER ── */
+  main {
+    flex: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    width: 100%;
+  }
+
+  /* ── INTRO ── */
+  #intro-screen .hero-label {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: .1em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+  #intro-screen h1 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: .75rem;
+  }
+  #intro-screen .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+  .info-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .info-num {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--navy);
+    font-family: var(--serif);
+  }
+  .info-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .start-btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: .02em;
+    transition: background .15s;
+  }
+  .start-btn:hover { background: #162448; }
+
+  /* ── QUIZ ── */
+  #quiz-screen { display: none; }
+
+  .progress-wrap { margin-bottom: 1.5rem; }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .progress-track {
+    height: 5px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 3px;
+    transition: width .3s ease;
+    width: 0%;
+  }
+
+  .q-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .q-tag {
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: .1em;
+    color: var(--light);
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+  }
+  .q-text {
+    font-family: var(--serif);
+    font-size: 17px;
+    color: var(--navy);
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+    background: var(--white);
+  }
+  .opt:hover { border-color: #aaa; background: var(--off); }
+  .opt.selected { border-color: var(--teal); background: rgba(15,123,108,.06); }
+  .opt-radio {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color .15s, background .15s;
+  }
+  .opt.selected .opt-radio { border-color: var(--teal); background: var(--teal); }
+  .opt.selected .opt-radio::after {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--white);
+    display: block;
+  }
+  .opt-body { flex: 1; }
+  .opt-text { font-size: 14px; line-height: 1.5; color: var(--text); }
+  .opt-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+  .nav-btn {
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    color: var(--text);
+    transition: background .15s;
+  }
+  .nav-btn:hover { background: var(--off); }
+  .nav-btn:disabled { opacity: .35; cursor: not-allowed; }
+  .nav-btn.primary { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .nav-btn.primary:hover { background: #162448; }
+  .q-counter { font-size: 13px; color: var(--muted); }
+
+  /* ── RESULTS ── */
+  #result-screen { display: none; }
+
+  .result-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .result-intro h2 {
+    font-family: var(--serif);
+    font-size: 26px;
+    color: var(--navy);
+    margin-bottom: .5rem;
+  }
+  .result-intro p { font-size: 14px; color: var(--muted); }
+
+  .score-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  .score-chip {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+  }
+  .score-chip-label { font-size: 11px; color: var(--muted); margin-bottom: 3px; }
+  .score-chip-val { font-size: 22px; font-weight: bold; }
+
+  .domain-result {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .domain-result.primary-domain { border-width: 2.5px; }
+  .primary-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--navy);
+    color: var(--white);
+    margin-bottom: 10px;
+    letter-spacing: .04em;
+  }
+  .dr-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 10px;
+  }
+  .dr-name { font-size: 17px; font-weight: bold; color: var(--navy); font-family: var(--serif); }
+  .dr-type {
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .bar-track { height: 6px; background: var(--border); border-radius: 3px; margin-bottom: 12px; }
+  .bar-fill { height: 6px; border-radius: 3px; }
+  .dr-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
+  .dr-watchout {
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border-left: 3px solid;
+    background: rgba(0,0,0,.03);
+  }
+  .dr-watchout strong { font-weight: bold; }
+
+  .cta-block {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--navy);
+    border-radius: 12px;
+    text-align: center;
+  }
+  .cta-block h3 { color: var(--white); font-family: var(--serif); font-size: 18px; margin-bottom: .5rem; }
+  .cta-block p { color: rgba(255,255,255,.7); font-size: 13px; margin-bottom: 1rem; line-height: 1.6; }
+  .cta-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .cta-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1.5px solid rgba(255,255,255,.4);
+    background: rgba(255,255,255,.1);
+    color: var(--white);
+    text-decoration: none;
+    transition: background .15s;
+  }
+  .cta-btn:hover { background: rgba(255,255,255,.2); }
+  .cta-btn.gold { background: var(--gold); border-color: var(--gold); color: var(--white); }
+  .cta-btn.gold:hover { background: #b08a1e; }
+
+  .retake-btn {
+    display: block;
+    margin: 1.25rem auto 0;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    color: var(--muted);
+    transition: background .15s;
+  }
+  .retake-btn:hover { background: var(--off); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,.5);
+  }
+  footer a { color: rgba(255,255,255,.7); text-decoration: none; }
+  footer a:hover { color: var(--white); }
+  footer .boldsteps { color: var(--gold); font-style: italic; }
+
+  @media (max-width: 480px) {
+    .info-grid { grid-template-columns: repeat(3, 1fr); }
+    .score-summary { grid-template-columns: repeat(2, 1fr); }
+    header .header-right { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="gold-bar"></div>
+<header>
+  <span class="logo-text">S<span class="logo-dot">•</span>M</span>
+  <span style="color:rgba(255,255,255,.5);font-size:13px;">Dr. Susan E. Murray</span>
+  <span class="header-right">Leadership Coach · Coach's Corner</span>
+</header>
+<div class="teal-bar"></div>
+
+<main>
+
+  <!-- ── INTRO ── -->
+  <div id="intro-screen">
+    <div class="hero-label">Self-Assessment</div>
+    <h1>What kind of leader are you?</h1>
+    <p class="subtitle">Based on the CliftonStrengths four leadership domains, this quick assessment reveals your natural leadership style — where you shine, and what to watch out for.</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-num">12</div><div class="info-label">Questions</div></div>
+      <div class="info-item"><div class="info-num">5</div><div class="info-label">Minutes</div></div>
+      <div class="info-item"><div class="info-num">4</div><div class="info-label">Domains</div></div>
+    </div>
+    <button class="start-btn" onclick="startQuiz()">Begin the assessment →</button>
+  </div>
+
+  <!-- ── QUIZ ── -->
+  <div id="quiz-screen">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span id="prog-label">Question 1 of 12</span>
+        <span id="prog-pct">0%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+    </div>
+    <div id="q-area"></div>
+    <div class="nav-row">
+      <button class="nav-btn" id="btn-back" onclick="goBack()" disabled>← Back</button>
+      <span class="q-counter" id="q-counter">1 / 12</span>
+      <button class="nav-btn primary" id="btn-next" onclick="goNext()" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- ── RESULTS ── -->
+  <div id="result-screen"></div>
+
+</main>
+
+<footer>
+  <p>Dr. Susan E. Murray · Leadership Coach · <span class="boldsteps">#boldsteps</span> · <a href="https://susan-e-murray.com" target="_blank">susan-e-murray.com</a></p>
+  <p style="margin-top:6px;">© 2025 Clearpath Leadership. Based on the CliftonStrengths framework by Gallup.</p>
+</footer>
+
+<script>
+const DOMAINS = [
+  { id:"people",  name:"People-Oriented Leader",  type:"Relationship Building", color:"#0F7B6C", light:"rgba(15,123,108,.08)"  },
+  { id:"process", name:"Process-Oriented Leader", type:"Executing",             color:"#1B2E5E", light:"rgba(27,46,94,.08)"    },
+  { id:"thought", name:"Thought-Oriented Leader", type:"Strategic Thinking",    color:"#7B5EA7", light:"rgba(123,94,167,.08)"  },
+  { id:"impact",  name:"Impact-Oriented Leader",  type:"Influencing",           color:"#996600", light:"rgba(153,102,0,.08)"   },
+];
+
+const DESCS = {
+  people:  "You lead through relationships. You build trust, create belonging, and genuinely care about the people on your team. Your team knows you see them as people, not just performers.",
+  process: "You lead through execution. You create the clarity, structure, and systems that allow your team to perform at their best. When you're on the team, people know what to do and how to do it.",
+  thought: "You lead through insight. You see patterns others miss, ask the questions that shift perspective, and help your team understand the 'why' behind the work.",
+  impact:  "You lead through influence. You set an inspiring direction, raise the bar, and move people to achieve things they didn't think were possible.",
+};
+
+const WATCHOUTS = {
+  people:  "Prioritising harmony over honest performance conversations can leave real issues unaddressed.",
+  process: "Rigidity in your systems can limit the growth and potential of your most talented team members.",
+  thought: "Getting lost in thinking mode can frustrate your team — they need decisions, not just insight.",
+  impact:  "Setting standards so high that people burn out or stop believing they can reach them.",
+};
+
+const QUESTIONS = [
+  { q:"A team member is struggling to meet their targets. Your first instinct is to...",
+    opts:[
+      { text:"Check in on how they're doing personally", sub:"Understand the whole picture", d:"people" },
+      { text:"Clarify expectations and create a structured plan", sub:"Get back on track efficiently", d:"process" },
+      { text:"Dig into the root cause of the problem", sub:"Understand why before acting", d:"thought" },
+      { text:"Challenge them to step up and hold them to a higher standard", sub:"Raise the bar", d:"impact" },
+  ]},
+  { q:"Your team is working on a new project. You naturally spend most energy on...",
+    opts:[
+      { text:"Making sure everyone feels valued and included", d:"people" },
+      { text:"Setting up clear processes and timelines", d:"process" },
+      { text:"Thinking through risks and future scenarios", d:"thought" },
+      { text:"Energising the team and pushing for ambitious goals", d:"impact" },
+  ]},
+  { q:"A conflict breaks out between two team members. You...",
+    opts:[
+      { text:"Bring them together to understand each person's experience", d:"people" },
+      { text:"Identify the process breakdown that caused the issue", d:"process" },
+      { text:"Step back and analyse the underlying dynamics first", d:"thought" },
+      { text:"Address it directly and challenge both parties to resolve it", d:"impact" },
+  ]},
+  { q:"When planning a team meeting, you focus most on...",
+    opts:[
+      { text:"Making it feel safe and collaborative for everyone", d:"people" },
+      { text:"Having a clear agenda and measurable outcomes", d:"process" },
+      { text:"Creating space for strategic discussion and ideas", d:"thought" },
+      { text:"Setting an inspiring tone and moving people to action", d:"impact" },
+  ]},
+  { q:"A top performer tells you they're bored. You...",
+    opts:[
+      { text:"Have a personal conversation to understand what they need", d:"people" },
+      { text:"Find them a stretch role or project that challenges their skills", d:"process" },
+      { text:"Explore what kind of work would intellectually engage them", d:"thought" },
+      { text:"Pitch them an exciting new challenge and get them fired up", d:"impact" },
+  ]},
+  { q:"The company is going through change. Your team looks to you for...",
+    opts:[
+      { text:"Reassurance and a sense of connection and community", d:"people" },
+      { text:"Clarity on what the new processes and expectations will be", d:"process" },
+      { text:"Context and perspective on what this change really means", d:"thought" },
+      { text:"Confidence and momentum — a reason to be excited", d:"impact" },
+  ]},
+  { q:"You just received some difficult feedback about your leadership. Your response is to...",
+    opts:[
+      { text:"Reflect on how your actions affected the people involved", d:"people" },
+      { text:"Look at what systems or habits you need to change", d:"process" },
+      { text:"Analyse what was really being said and why", d:"thought" },
+      { text:"Use it as fuel to come back stronger", d:"impact" },
+  ]},
+  { q:"Your biggest risk as a leader is probably...",
+    opts:[
+      { text:"Prioritising harmony over honest performance conversations", d:"people" },
+      { text:"Being too rigid or slow to adapt when things change", d:"process" },
+      { text:"Getting stuck in thinking mode and not moving fast enough", d:"thought" },
+      { text:"Setting the bar so high that people burn out or disengage", d:"impact" },
+  ]},
+  { q:"You get the most energy from...",
+    opts:[
+      { text:"Meaningful one-on-one conversations with my team", d:"people" },
+      { text:"Seeing a well-built system work smoothly", d:"process" },
+      { text:"A rich conversation about ideas and possibilities", d:"thought" },
+      { text:"Seeing my team achieve something they didn't think was possible", d:"impact" },
+  ]},
+  { q:"A new team member joins. In the first week, you prioritise...",
+    opts:[
+      { text:"Making them feel welcomed and part of the team", d:"people" },
+      { text:"Getting them up to speed on processes and expectations", d:"process" },
+      { text:"Understanding their thinking and what they bring intellectually", d:"thought" },
+      { text:"Painting an inspiring picture of where the team is headed", d:"impact" },
+  ]},
+  { q:"When your team hits a wall, your natural response is to...",
+    opts:[
+      { text:"Check morale and make sure no one is feeling unsupported", d:"people" },
+      { text:"Break the problem into steps and work through it systematically", d:"process" },
+      { text:"Reframe the problem and look for a different angle", d:"thought" },
+      { text:"Rally the team and push through with energy and urgency", d:"impact" },
+  ]},
+  { q:"The leadership legacy you most want to leave is...",
+    opts:[
+      { text:"A team that trusted me and felt genuinely cared for", d:"people" },
+      { text:"A high-performing, well-organised team that delivered results", d:"process" },
+      { text:"A team that learned to think deeply and solve hard problems", d:"thought" },
+      { text:"A team that believed in something bigger and achieved the extraordinary", d:"impact" },
+  ]},
+];
+
+const scores  = { people:0, process:0, thought:0, impact:0 };
+const answers = new Array(QUESTIONS.length).fill(null);
+let current   = 0;
+
+function startQuiz() {
+  document.getElementById("intro-screen").style.display = "none";
+  document.getElementById("quiz-screen").style.display  = "block";
+  renderQ();
+}
+
+function renderQ() {
+  const q   = QUESTIONS[current];
+  const sel = answers[current];
+  const pct = Math.round((current / QUESTIONS.length) * 100);
+
+  document.getElementById("prog-fill").style.width = pct + "%";
+  document.getElementById("prog-label").textContent = "Question " + (current+1) + " of " + QUESTIONS.length;
+  document.getElementById("prog-pct").textContent   = pct + "%";
+  document.getElementById("q-counter").textContent  = (current+1) + " / " + QUESTIONS.length;
+  document.getElementById("btn-back").disabled = current === 0;
+  document.getElementById("btn-next").disabled = sel === null;
+  document.getElementById("btn-next").textContent = current === QUESTIONS.length-1 ? "See my results →" : "Next →";
+
+  document.getElementById("q-area").innerHTML = `
+    <div class="q-card">
+      <div class="q-tag">Question ${current+1}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">
+        ${q.opts.map((o,i) => `
+          <div class="opt${sel===i?' selected':''}" onclick="selectOpt(${i})">
+            <div class="opt-radio"></div>
+            <div class="opt-body">
+              <div class="opt-text">${o.text}</div>
+              ${o.sub ? `<div class="opt-sub">${o.sub}</div>` : ""}
+            </div>
+          </div>`).join("")}
+      </div>
+    </div>`;
+}
+
+function selectOpt(i) {
+  const prev = answers[current];
+  if (prev !== null) scores[QUESTIONS[current].opts[prev].d]--;
+  answers[current] = i;
+  scores[QUESTIONS[current].opts[i].d]++;
+  renderQ();
+}
+
+function goNext() {
+  if (answers[current] === null) return;
+  if (current === QUESTIONS.length - 1) { showResults(); return; }
+  current++;
+  renderQ();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function goBack() {
+  if (current > 0) { current--; renderQ(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+}
+
+function showResults() {
+  document.getElementById("quiz-screen").style.display  = "none";
+  document.getElementById("result-screen").style.display = "block";
+  document.getElementById("prog-fill").style.width = "100%";
+
+  const total  = QUESTIONS.length;
+  const sorted = [...DOMAINS].sort((a,b) => scores[b.id] - scores[a.id]);
+  const pct    = d => Math.round((scores[d.id] / total) * 100);
+  const primary = sorted[0];
+
+  document.getElementById("result-screen").innerHTML = `
+    <div class="result-intro">
+      <h2>Your leadership style</h2>
+      <p>Based on your responses to ${total} questions</p>
+    </div>
+
+    <div class="score-summary">
+      ${sorted.map(d => `
+        <div class="score-chip">
+          <div class="score-chip-label" style="color:${d.color}">${d.type}</div>
+          <div class="score-chip-val" style="color:${d.color}">${pct(d)}%</div>
+        </div>`).join("")}
+    </div>
+
+    ${sorted.map((d,i) => `
+      <div class="domain-result${i===0?' primary-domain':''}" style="${i===0 ? 'border-color:'+d.color+';background:'+d.light : ''}">
+        ${i===0 ? '<div class="primary-tag">Your primary domain</div>' : ""}
+        <div class="dr-top">
+          <div class="dr-name">${d.name}</div>
+          <span class="dr-type" style="background:${d.light};color:${d.color}">${d.type}</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct(d)}%;background:${d.color}"></div></div>
+        <div class="dr-desc">${DESCS[d.id]}</div>
+        <div class="dr-watchout" style="border-color:${d.color}">
+          <strong>Watch out:</strong> ${WATCHOUTS[d.id]}
+        </div>
+      </div>`).join("")}
+
+    <div class="cta-block">
+      <h3>Ready to go deeper?</h3>
+      <p>Book a 5-minute Strengths Spotlight session at Coach's Corner — or schedule a full discovery call with Dr. Susan E. Murray.</p>
+      <div class="cta-btns">
+        <a href="https://susan-e-murray.com" target="_blank" class="cta-btn gold">Book a discovery call</a>
+        <a href="https://susan-e-murray.com" target="_blank" class="cta-btn">Visit susan-e-murray.com</a>
+      </div>
+    </div>
+
+    <button class="retake-btn" onclick="retake()">← Retake the assessment</button>`;
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function retake() {
+  Object.keys(scores).forEach(k => scores[k] = 0);
+  answers.fill(null);
+  current = 0;
+  document.getElementById("result-screen").style.display  = "none";
+  document.getElementById("intro-screen").style.display   = "block";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>
